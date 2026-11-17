@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Research Engineer · Portfolio</title>
+<meta name="description" content="보안을 중심으로 Robotics AI(Computer Vision), LLM, XAI, Anomaly Detection을 연구합니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Research Engineer · Portfolio">
+<meta property="og:description" content="보안을 중심으로 Robotics AI(Computer Vision), LLM, XAI, Anomaly Detection을 연구합니다.">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,700&family=Instrument+Serif&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#fcfbfe}
+iframe{position:fixed;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .6s ease}
+iframe.on{opacity:1}
+#intro{position:fixed;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fcfbfe;color:#24212b;font-family:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;cursor:pointer;transition:opacity .6s ease}
+#intro.out{opacity:0;pointer-events:none}
+.l1,.l2{display:flex;align-items:center;white-space:nowrap;line-height:1;min-height:1em}
+.l1{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(46px,11.5vw,140px);letter-spacing:-0.02em}
+.l2{font-style:italic;font-weight:700;font-size:clamp(46px,11.5vw,136px);letter-spacing:-0.03em;margin-top:.06em}
+.l2{position:relative}
+#t2{opacity:0;transition:opacity .35s}
+.bb{position:absolute;overflow:visible;pointer-events:none}
+.lab{position:absolute;font-family:"JetBrains Mono",ui-monospace,monospace;font-style:normal;font-weight:600;font-size:clamp(10px,1.4vw,13px);letter-spacing:0;line-height:1;color:#fff;background:#21918c;padding:4px 7px;border-radius:3px 3px 3px 0;opacity:0;transition:opacity .25s;white-space:nowrap}
+.cur{display:inline-block;width:.045em;min-width:2px;height:.95em;background:#24212b;margin-left:.06em;visibility:hidden}
+.cur.on{visibility:visible;animation:blink .9s steps(1) infinite}
+.bar{margin-top:clamp(22px,4vw,40px);width:min(220px,50vw);height:3px;border-radius:2px;background:linear-gradient(90deg,#440154,#3b528b,#21918c,#5ec962,#fde725);clip-path:inset(0 100% 0 0 round 2px);transition:clip-path .5s cubic-bezier(.3,.7,.2,1)}
+.bar.on{clip-path:inset(0 0 0 0 round 2px)}
+@keyframes blink{50%{opacity:0}}
+</style>
+</head>
+<body>
+<div id="intro" aria-hidden="true">
+  <div class="l1"><span id="t1"></span><span class="cur" id="c1"></span></div>
+  <div class="l2"><span id="t2"></span><span class="cur" id="c2"></span></div>
+  <div class="bar" id="bar"></div>
+</div>
+<iframe id="site" data-src="portfolio-blind.html" title="김미주 포트폴리오"></iframe>
+<script>
+(function(){
+  var intro=document.getElementById('intro'),fr=document.getElementById('site');
+  var t1=document.getElementById('t1'),t2=document.getElementById('t2'),c1=document.getElementById('c1'),c2=document.getElementById('c2'),bar=document.getElementById('bar');
+  var done=false,animDone=false,siteReady=false;
+  function reveal(){ if(done) return; load(); done=true; fr.classList.add('on'); intro.classList.add('out'); setTimeout(function(){ intro.remove(); },700); }
+  function maybe(){ if(animDone && siteReady) setTimeout(reveal,150); }
+  intro.addEventListener('click',reveal);
+  var seen=false;
+  var wait=function(ms){return new Promise(function(r){setTimeout(r,ms);});};
+  function type(el,s,ms){ var i=0; return new Promise(function(r){ (function n(){ if(done) return r(); if(i>=s.length) return r(); el.textContent+=s[i++]; setTimeout(n,ms); })(); }); }
+  function erase(el,ms){ return new Promise(function(r){ (function n(){ if(done) return r(); if(!el.textContent.length) return r(); el.textContent=el.textContent.slice(0,-1); setTimeout(n,ms); })(); }); }
+  var CH='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&$@*<>/';
+  async function decode(el,T){
+    el.innerHTML=T.split('').map(function(){return '<span></span>';}).join('');
+    var sp=[].slice.call(el.children),t0=performance.now();
+    while(!done){
+      var t=performance.now()-t0,all=true;
+      sp.forEach(function(s,i){ if(t>=280+i*70){ s.textContent=T[i]; s.className=''; s.style.opacity=1; } else { all=false; s.textContent=CH[(Math.random()*CH.length)|0]; s.className='mono'; s.style.opacity=t<i*30?0:1; } });
+      if(all) break; await wait(40);
+    }
+    el.textContent=T;
+  }
+  function load(){ if(!fr.src) fr.src=fr.getAttribute('data-src'); }
+  async function run(){
+    t1.textContent='AI \u00d7 SECURITY';
+    t2.textContent='PORTFOLIO';
+    if(document.fonts&&document.fonts.ready) await Promise.race([document.fonts.ready,wait(1500)]);
+    var l2=t2.parentNode,w=t2.offsetWidth,ht=l2.offsetHeight,pad=Math.max(8,Math.round(ht*.1)),ns='http://www.w3.org/2000/svg';
+    var svg=document.createElementNS(ns,'svg'); svg.setAttribute('class','bb');
+    svg.setAttribute('width',w+pad*2); svg.setAttribute('height',ht+pad);
+    svg.style.left=(t2.offsetLeft-pad)+'px'; svg.style.top=(-pad/2)+'px';
+    var r=document.createElementNS(ns,'rect');
+    r.setAttribute('x',1);r.setAttribute('y',1);r.setAttribute('width',w+pad*2-2);r.setAttribute('height',ht+pad-2);
+    r.setAttribute('fill','none');r.setAttribute('stroke','#21918c');r.setAttribute('stroke-width',2.5);
+    var P=2*(w+pad*2+ht+pad); r.style.strokeDasharray=P; r.style.strokeDashoffset=P; r.style.transition='stroke-dashoffset .6s cubic-bezier(.5,0,.2,1)';
+    svg.appendChild(r); l2.appendChild(svg);
+    var lab=document.createElement('div'); lab.className='lab'; lab.textContent='portfolio 0.99'; l2.appendChild(lab);
+    lab.style.left=(t2.offsetLeft-pad)+'px'; lab.style.top=(-pad/2-lab.offsetHeight)+'px';
+    await wait(150); r.getBoundingClientRect(); r.style.strokeDashoffset=0;
+    await wait(620); lab.style.opacity=1;
+    await wait(180); t2.style.opacity=1;
+    await wait(380);
+    bar.classList.add('on'); load(); await wait(650);
+    animDone=true; maybe();
+  }
+  run();
+  function ready(){ try{ var d=fr.contentDocument; return !!(d && d.querySelector('nav')); }catch(e){ return true; } }
+  var poll=setInterval(function(){ if(ready()){ clearInterval(poll); siteReady=true; maybe(); } },120);
+  setTimeout(load,2500);
+  setTimeout(function(){ siteReady=true; maybe(); },6000);
+})();
+</script>
+</body>
+</html>
